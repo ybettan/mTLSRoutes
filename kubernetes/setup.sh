@@ -23,9 +23,10 @@ openssl x509 -req -sha256 -days 365 -in client.csr -CA ca.crt -CAkey ca.key -set
 # work in mtls-routes namespace
 kubectl create namespace mtls-routes
 
+# FIXME: make it a yaml also
 # store ca-cert and server-cert as Secret in the cluster
 echo storing ca-cert and server-cert as Secret in the cluster...
-kubectl create secret generic my-certs \
+kubectl -n mtls-routes create secret generic my-certs \
     --from-file=tls.crt=server.crt \
     --from-file=tls.key=server.key \
     --from-file=ca.crt=ca.crt
